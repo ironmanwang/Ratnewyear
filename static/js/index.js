@@ -125,7 +125,7 @@ function Food(type, left, id) {
     this.height = 50;
     this.left = left;
     this.top = -50;
-    this.speed = 0.01 * Math.pow(1.2, Math.floor(gameMonitor.time / this.speedUpTime));
+    this.speed = .01 * Math.pow(1.2, Math.floor(gameMonitor.time / this.speedUpTime));
     this.loop = 0;
     this.scorenums = 0;
     this.timenums = 0;
@@ -501,11 +501,11 @@ var gameMonitor = {
         // 	});
         // });
 
-        // WeixinApi.ready(function(Api) {   
+        // WeixinApi.ready(function(Api) {
         //           // 微信分享的数据
         //           //分享给好友的数据
         //           var wxData = {
-        //               "appId": "", 
+        //               "appId": "",
         //               "imgUrl" : "static/img/icon.png",
         //               "link" : "",
         //               "desc" : "进击的龙舟",
@@ -558,12 +558,13 @@ var gameMonitor = {
                 _this.ship = new Ship(ctx);
                 _this.ship.paint();
                 _this.ship.controll();
-                _this.run(ctx);
                 _this.reset();
+                _this.timmer = true;
+                _this.run(ctx);
                 _this.countDown();
                 clearInterval(test)
             }
-        }, 16)
+        }, 1000)
 
     },
     rollBg: function(ctx) {
@@ -590,7 +591,7 @@ var gameMonitor = {
         }, 1000);
 
         // setTimeout(function() {
-        //     //$("#countDown").text('0S');            
+        //     //$("#countDown").text('0S');
         //     clearInterval(_this.countAction);
         // }, countTotal * 1000);
 
@@ -609,19 +610,20 @@ var gameMonitor = {
         _this.genorateFood();
 
         //绘制福包
-        debugger
         for (i = _this.foodList.length - 1; i >= 0; i--) {
             var f = _this.foodList[i];
             if (f) {
-                f.paint(ctx);
+                // f.paint(ctx);
                 f.move(ctx);
             }
 
         }
-        _this.timmer = setTimeout(function() {
-            gameMonitor.run(ctx);
-        }, 16);
+        if(_this.timmer){
+          window.requestAnimationFrame(function () {
+            gameMonitor.run(ctx)
+          });
 
+        }
         _this.time++;
 
 
@@ -630,7 +632,8 @@ var gameMonitor = {
         var _this = this
         $('#stage').off(gameMonitor.eventType.start + ' ' + gameMonitor.eventType.move);
         setTimeout(function() {
-            clearTimeout(_this.timmer);
+            // clearTimeout(_this.timmer);
+            _this.timmer = null;
         }, 0);
 
         setTimeout(function() {
