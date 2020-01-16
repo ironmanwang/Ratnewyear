@@ -437,6 +437,8 @@ i {
     left: 0;
     top: 0;
     color: #b92d22;
+    min-height: 11rem;
+    overflow: auto;
 }
 
 .result-card {
@@ -699,7 +701,7 @@ i {
 .rules-pane p {
     color: #fec07c;
     line-height: 0.3rem;
-    font-size: 0.06rem;
+    font-size: 0.2rem;
     font-weight: bold;
     font-weight: 400;
     font-family: "FZShuangQTJW_Zhun";

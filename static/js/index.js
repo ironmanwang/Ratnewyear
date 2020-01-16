@@ -125,7 +125,7 @@ function Food(type, left, id) {
     this.height = 50;
     this.left = left;
     this.top = -50;
-    this.speed = 0.05 * Math.pow(1.2, Math.floor(gameMonitor.time / this.speedUpTime));
+    this.speed = 0.01 * Math.pow(1.2, Math.floor(gameMonitor.time / this.speedUpTime));
     this.loop = 0;
     this.scorenums = 0;
     this.timenums = 0;
@@ -563,7 +563,7 @@ var gameMonitor = {
                 _this.countDown();
                 clearInterval(test)
             }
-        }, 1000)
+        }, 16)
 
     },
     rollBg: function(ctx) {
@@ -609,6 +609,7 @@ var gameMonitor = {
         _this.genorateFood();
 
         //绘制福包
+        debugger
         for (i = _this.foodList.length - 1; i >= 0; i--) {
             var f = _this.foodList[i];
             if (f) {
@@ -619,7 +620,7 @@ var gameMonitor = {
         }
         _this.timmer = setTimeout(function() {
             gameMonitor.run(ctx);
-        }, Math.round(1000 / 60));
+        }, 16);
 
         _this.time++;
 
